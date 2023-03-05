@@ -1,0 +1,2 @@
+class CommonFailure < ApplicationRecord
+end
