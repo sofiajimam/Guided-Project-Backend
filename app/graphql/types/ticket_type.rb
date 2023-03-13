@@ -7,7 +7,7 @@ module Types
     field :name, String
     field :description, String
 
-    field :status, Types::StatusType
+    field :status, StatusType, null: false
     field :location, Types::LocationType, null: true
 
     field :company, Types::TicketType, null: false

@@ -8,6 +8,7 @@ module Mutations
 
     def resolve(id:)
       machine = ::Machine.find_by(id: id)
+      raise GraphQL::ExecutionError, 'Machine not found' unless machine
       raise GraphQL::ExecutionError.new 'Error deleting machine', extensions: machine&.errors&.to_hash unless machine&.destroy
 
       { machine: machine }

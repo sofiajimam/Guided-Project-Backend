@@ -10,9 +10,12 @@ module Mutations
 
     def resolve(id:)
       common_failure = ::CommonFailure.find_by(id: id)
+
+      raise GraphQL::ExecutionError, 'Common failure not found' unless common_failure
+
       unless common_failure&.destroy
         raise GraphQL::ExecutionError.new 'Error deleting common failure',
-                                          extensions: common_failure&.errors&.to_hash
+          extensions: common_failure&.errors&.to_hash
       end
 
       { common_failure: common_failure }

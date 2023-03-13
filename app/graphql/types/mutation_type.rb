@@ -1,5 +1,10 @@
 module Types
   class MutationType < Types::BaseObject
+    field :branch_delete, mutation: Mutations::BranchDelete
+    field :company_delete, mutation: Mutations::CompanyDelete
+    field :company_create, mutation: Mutations::CompanyCreate
+    field :employee_delete, mutation: Mutations::EmployeeDelete
+    field :admin_delete, mutation: Mutations::AdminDelete
     field :employee_create, mutation: Mutations::EmployeeCreate
     field :branch_create, mutation: Mutations::BranchCreate
     field :ticket_delete, mutation: Mutations::TicketDelete

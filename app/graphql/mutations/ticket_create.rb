@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Mutations
   class TicketCreate < BaseMutation
     description 'Creates a new ticket'
@@ -16,12 +14,16 @@ module Mutations
 
       ticket = ::Ticket.new(
         branch: branch,
-        machine: company.machines.find_by(id: ticket_input.machine_id),
+        machine: Machine.find_by(id: ticket_input.machine_id),
         description: ticket_input.description,
-        author: context[:current_user]
+        author: context[:current_user],
+        assignee: Employee.find_by(id: ticket_input.assignee_id),
       )
 
       ticket.common_failures << CommonFailure.where(id: ticket_input.failures)
+
+      # check that each common failures exists and specify which one
+      raise GraphQL::ExecutionError, 'Common failure does not exist' unless ticket.common_failures.count == ticket_input.failures.count
       raise GraphQL::ExecutionError.new 'Error creating ticket', extensions: ticket.errors.to_hash unless ticket.save
 
       { ticket: ticket }

@@ -6,5 +6,6 @@ module Types
     argument :branch_id, ID
     argument :machine_id, ID
     argument :failures, [ID]
+    argument :assignee_id, ID
   end
 end

@@ -12,7 +12,7 @@ module Mutations
       common_failure = ::CommonFailure.new(**common_failure_input)
       unless common_failure.save
         raise GraphQL::ExecutionError.new 'Error creating common_failure',
-                                          extensions: common_failure.errors.to_hash
+          extensions: common_failure.errors.to_hash
       end
 
       { common_failure: common_failure }
