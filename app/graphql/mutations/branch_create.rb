@@ -18,22 +18,11 @@ module Mutations
     end
 
     def resolve_company(company_id)
-      if context[:current_user_type] == :company_admin
-        context[:current_user].company
-      else
-        Company.find_by(id: company_id)
-      end
+      Company.find_by(id: company_id)
     end
 
     def authorized?(branch_input:)
       return true if context[:current_user_type] == :admin
-
-      if context[:current_user_type] == :company_admin &&
-         context[:current_user].company_id == branch_input.company_id.to_i
-
-        return true
-      end
-
       raise GraphQL::ExecutionError, 'You are not allowed to perform this action'
     end
   end

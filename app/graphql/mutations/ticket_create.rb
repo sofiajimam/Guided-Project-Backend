@@ -30,12 +30,6 @@ module Mutations
     def authorized?(ticket_input:)
       return true if context[:current_user_type] == :admin
 
-      if context[:current_user_type] == :company_admin &&
-         context[:current_user].company.branches.find_by(id: ticket_input.branch_id)
-
-        return true
-      end
-
       raise GraphQL::ExecutionError, 'You are not allowed to perform this action'
     end
   end

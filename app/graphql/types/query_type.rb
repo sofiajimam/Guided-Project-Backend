@@ -23,7 +23,7 @@ module Types
     end
 
     def admins
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Admin.all
     end
 
@@ -33,7 +33,7 @@ module Types
     end
 
     def common_failures
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::CommonFailure.all
     end
 
@@ -43,7 +43,7 @@ module Types
     end
 
     def machines
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Machine.all
     end
 
@@ -53,7 +53,7 @@ module Types
     end
 
     def tickets
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Ticket.all
     end
 
@@ -63,7 +63,7 @@ module Types
     end
 
     def branches
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Branch.all
     end
 
@@ -73,7 +73,7 @@ module Types
     end
 
     def companies
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Company.all
     end
 
@@ -83,7 +83,7 @@ module Types
     end
 
     def employees
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Employee.all
     end
 
@@ -93,7 +93,7 @@ module Types
     end
 
     def current_employee
-      unauthorized unless context[:current_user_type] == :employee
+      unauthorized_field unless context[:current_user_type] == :employee
       context[:current_user]
     end
 
@@ -103,7 +103,7 @@ module Types
     end
 
     def current_admin
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       context[:current_user]
     end
 
@@ -114,7 +114,7 @@ module Types
     end
 
     def company(id:)
-      unauthorized unless context[:current_user_type] == :admin
+      unauthorized_field unless context[:current_user_type] == :admin
       ::Company.find(id)
     end
   end

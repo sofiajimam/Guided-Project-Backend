@@ -7,17 +7,18 @@ module ApplicationCable
     end
 
     private
+
     def find_verified_user
       token = request.params[:token]
-
-      payload, _ = JWT.decode token, "secret", true, { algorithm: 'HS256' }
+      payload, _ = JWT.decode token, Rails.application.credentials.jwt[:secret_key_base], true, { algorithm: 'HS256' }
       user_type = payload["type"].to_sym
 
       current_user = {
         data: get_user_model(user_type).find_by(id: payload["sub"]["id"]),
         type: user_type
       }
-    rescue
+      current_user || reject_unauthorized_connection
+    rescue JWT::VerificationError, JWT::DecodeError
       reject_unauthorized_connection
     end
 

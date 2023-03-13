@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_04_170415) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_05_150726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_04_170415) do
     t.string "password_digest"
     t.string "name"
     t.string "email"
+    t.string "type"
   end
 
   add_foreign_key "branches", "companies"
